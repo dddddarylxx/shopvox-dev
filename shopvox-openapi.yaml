@@ -1,0 +1,95 @@
+openapi: 3.1.0
+info:
+  title: ShopVOX API - Companies & Customers
+  description: OpenAPI specification for ShopVOX companies and contacts endpoints.
+  version: 1.0.1
+servers:
+  - url: https://api.shopvox-ii.com
+    description: ShopVOX API server
+
+components:
+  securitySchemes:
+    apiToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  responses:
+    UnauthorizedError:
+      description: Authentication information is missing or invalid
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Unauthorized
+
+    InternalServerError:
+      description: Unexpected server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Internal Server Error
+
+security:
+  - apiToken: []
+
+paths:
+  /edge/companies/active_import:
+    get:
+      operationId: getActiveImportCompanies
+      summary: Retrieve active company import data
+      responses:
+        '200':
+          description: A list of active import companies
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  companies:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /edge/contacts/active_import:
+    get:
+      operationId: getActiveImportContacts
+      summary: Retrieve active contact import data
+      responses:
+        '200':
+          description: A list of active import contacts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  contacts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        email:
+                          type: string
+                          format: email
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
