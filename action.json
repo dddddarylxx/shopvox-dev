@@ -10,7 +10,7 @@
   },
   "api": {
     "type": "openapi",
-    "url": "https://yourdomain.com/shopvox-openapi.yaml",
+    "url": "https://github.com/dddddarylxx/shopvox-dev/blob/f0e1aee61f5e04ff1c7911add5ea787a3eefd079/shopvox-openapi.yaml",
     "has_user_authentication": false
   },
   "logo_url": "https://yourdomain.com/logo.png",
